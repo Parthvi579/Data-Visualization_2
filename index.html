@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>coursework-2</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+   <h1><center>Agriculture Factor Productivity, Adolescent Fertility Rate, International Poverty Line</center></h1>
+
+   <div id="dashboard">
+    <table id="countryTable">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Total Factor Productivity</th>
+          <th>Total Output Quantity</th>
+        </tr>
+      </thead>        
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+    <div class="chart-container">
+       <div class="chart" id="choropleth-map"></div>  
+        <div class="chart" id="bubble_chart"></div> 
+    </div>
+    <div class="chart-container">
+          <div class="chart">
+            <p>Growth of Total Factor Productivity directly increase the outputs making it a key driver of <br>economic growth. The below chart illustrates how countries have been able to improve <br>their TFP while also controlling poverty and income gap ratio over time</p>
+          </div>
+          <div class="chart">
+            <p >Differentiation between inputs and output in agriculture can lead to difficulties in producing enough food to meet the needs of the population, contributing to increased poverty and food insecurity. There are still some countries which are not able to control Poverty  </b></p>
+          </div>
+      </div>
+      <div class="chart-container">
+      <div class="chart" id="connected-scatter-chart" > </div>
+      <div class="chart" id="neg-connected-scatter-chart" > </div>
+      </div>
+      <div class="chart-container">
+      <div>
+        <select id="country-dropdown"></select>
+        <div class="chart" id="stacked_bar_chart" > </div>
+      </div>
+    </div>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="choropleth.js"></script> 
+    <script src="Circular_packing.js"></script>  
+    <script src="connected_scatterplot_1.js"></script>
+    <script src="connected_scatterplot_2.js"></script>
+    <script src="stacked_barplot.js"></script>
+  </body>
+  </body>
+</html>
