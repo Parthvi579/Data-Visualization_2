@@ -1,171 +1,118 @@
 
+
+
+
 **Introduction:**
 
-I made an effort to adhere to the requirements outlined in the coursework guideline in my application.
+### “Exploring the Interconnections between Adolescent Fertility, Agriculture, and Poverty”
+
+In my data visualization story, I explored the relationship between several different datasets. For example, I want to examine the number of births given by women aged 15-19 in a given country and determine whether that country has the ability to meet the food requirements of its growing population based on its agriculture output. Additionally, I want to look at how many people in the country are living below the international poverty line. By examining these different factors together, I hope to uncover insights about how different social and economic factors are interconnected and impact one another.
+
+I made an effort to adhere to the requirements outlined in the coursework guideline in my application using three different databases.
 
 **Task:**
 
-- I conducted this project by filtering and aggregating data using Python, which allowed me to obtain a clean dataset for visualization. I then utilized D3.js, a powerful data visualization library, to develop interactive and engaging visualizations for the project.
+- For this project, I have used Python to filter and aggregate data, which helped me to create a clean dataset for visualization. To develop the visualizations themselves, I have used D3.js version 7, a
 
-The following points have been attempted to be illustrated using the Covid-19 dataset from the coursework:
+powerful data visualization library that enabled me to create interactive and engaging visuals. Specifically, I have focused on creating visualizations that highlighted the relationship between agriculture, international poverty, and adolescent fertility rates (measured per 1000 women aged 15-19 years) at an international level.
 
-**1. How did the COVID-19 pandemic grow over countries and continents throughout the world from its start?**
+-I have created a visualisation dashboard that is animated and contains multiple graphical outputs using three different data sources, which are connected in order to tell a compelling visualisation story. To ensure the quality and accuracy of the data, I utilized appropriate data analytics techniques to filter and aggregate the data.
 
-I created a line chart that shows the daily total cases of COVID-19 for the world since the start of the pandemic. The line chart clearly shows that the number of cases increased exponentially in the early stages of the pandemic, with a sharp rise in cases starting around March 2020. The number of cases continued to increase throughout 2020 and into 2021, with several peaks and plateaus along the way.
+**Datasets:**
 
-Using the date on the x-axis and the number of new cases on the y-axis, this would allow the observer to see how the pandemic spread over time.
+- For my visusalisation I have selected three different dataset from different sources as given below.
 
-I utilised the dataset's date, location, and total cases as Each observation in the dataset has a date associated with it, and the "total cases" column lists all confirmed COVID-19 cases.
+1.**Agriculture Total factor Productivity(USDA)**: [https://github.com/owid/owid](https://github.com/owid/owid-datasets/tree/master/datasets/Agricultural%20total%20factor%20productivity%20(USDA))datasets/tree/master/datasets/Agricultural%20total%20factor%20productivity%20(USDA)
 
-With this information, I can see how the pandemic spreads across the nation because it is obvious that we can comprehend this situation by observing the global increase in COVID instances from beginning to end.
+This database contains information on agricultural total factor productivity (TFP) as reported by the United States Department of Agriculture (USDA). Total factor productivity is a measure of the efficiency with which inputs are used in production. In the case of agriculture, it measures how effectively inputs such as labor, capital, and natural resources are used to produce agricultural output.
 
-I used python for pre-processing data analytic using only specific column from the given dataset as follow,
+2.**Adolescent fertility rate (births per 1000 women aged 15-19 years) :**
 
-import pandas as pd
+[https://www.who.int/data/gho/data/indicators/indicator-details/GHO/hem-adolescent-fertility-rate-(per](https://www.who.int/data/gho/data/indicators/indicator-details/GHO/hem-adolescent-fertility-rate-(per-1000-women-aged-15-19-years))1000-women-aged-15-19-years)
 
-##### Load the data
+This dataset contains information on the adolescent fertility rate (AFR) as reported by the World Health Organization (WHO). The AFR is defined as the number of births that occur to women aged 15-19 years per 1000 women in that age group.The dataset includes AFR values for various countries and regions, as well as for the world as a whole.
 
-df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+### 3. Data on Poverty by Our World in Data (PIP dataset)[:](https://github.com/owid/poverty-data)[https://github.com/owid/poverty-data](https://github.com/owid/poverty-data)
 
-##### Select only the useful columns
+The dataset includes poverty rate values for various countries and regions, as well as for the world as a whole, and covers the years from 1981 to 2020. The data is reported using different poverty measures and thresholds, such as the percentage of the population living below the national poverty line or the international poverty line (which is currently set at $1.90 per day in 2011 purchasing power parity terms).
 
-df = df[['date', 'location', 'total_cases', 'total_deaths']]
+**Design and implementation of my visualisation:**
 
-##### Replace NaN values with 0
+The following points have been attempted to be illustrated using the three datasets for the coursework:
 
-df[['total_cases', 'total_deaths']] = df[['total_cases', 'total_deaths']].fillna(0)
+### 1.Across the world, countries with higher levels of agricultural land quantity tend to have higher rates of adolescent fertility rate
 
-##### Convert the date column to datetime format df['date'] = pd.to_datetime(df['date'])
+To analyze the relationship between the total agricultural land quantity and adolescent fertility rate in a geographic area, I created a choropleth map that displayed different scalar data over a world map. The data was obtained from the **Agriculture Total Factor Productivity (USDA)** database and included “Entity,” “year,” “tfp,” “output_quantity,” and “Ag_land_Quantity,” as well as from the **Adolescent Fertility Rate** database, which included “FactValueNumeric” data.
 
-##### Group the data by month and country, and take the maximum of each month
+To represent the total adolescent fertility rate in each country, I used circles of varying sizes, with larger circles indicating a higher number of fertility rates. The map also included tooltips that provided more information about each country, such as total factor productivity, output quantity, and agricultural land quantity. When a user hovers over a circle on a country, it displays information about adolescent fertility rate. When a user clicks on a country, the code updates the connected scatter plot with the location of the country.
 
-df_monthly = df.groupby([pd.Grouper(key='date', freq='M'), 'location']).max()
+To color the map, I used a threshold scale to represent different levels of agricultural land quantity. The color range was green, with darker shades indicating higher levels of agricultural land quantity. The data displayed on the map represents the year with the highest value of both agricultural land quantity and adolescent fertility rate for each country.
 
-##### Save the data to a CSV file
+I used python for analysis of data.
 
-df_monthly.to_csv('1_linechart.csv')
 
-![Picture 1-1](https://github.com/Parthvi579/Data-Visualization_2/assets/72267232/c0863afa-66a9-4739-a4b7-ea7342c91071)
+![Picture 1](https://github.com/Parthvi579/Data-Visualization_2/assets/72267232/4ebf00fb-6b36-4896-8099-3dccf40ab176)
 
+Chart 1: Map
 
-Chart 1: Line Chart
+### 2. Interrelationships between Total Factor Productivity, Adolescent Fertility, and International Poverty: Circular Packing Graph
 
-**2. Choosing some specific countries, how successfully did they manage the outbreak?**
+I have created a circular packing bubble chart using three different datasets, including the "tfp" column from the **Agriculture Total Factor Productivity (USDA)** database, "FactValueNumeric" from the **Fertility Rate** database, and "headcount_ratio_international_povline" from the **PIP_dataset**. Each entity for the year 2019 is represented by a circle in the chart. I have also created a tooltip to display information on each entity when the user hovers over its circle in the chart. I have observed that counties with higher values in the "total factor productivity" column tend to have larger circles, while entities with higher values in the "FactValueNumeric" column tend to have warmer colored circles. Additionally, by comparing the position of the circles to see how poverty rates vary across different countries. This circular packing graph represents the interrelationships between Total Factor Productivity, Adolescent Fertility, and International Poverty. It can be analyzed that countries with high total factor productivity tend to have lower adolescent fertility rates and lower rates of poverty.
 
-To assess the success of different countries in managing the COVID-19 outbreak, I analyzed data from the repository, focusing on the variables "stringency_index" and "new_cases" for selected countries.
+Pre-processing analytics with python used by me for this visualization,
 
-I created a scatterplot chart to compare the stringency index and new cases for each country. The stringency index represents the severity of government-imposed restrictions on social and economic activities, with higher values indicating more restrictive measures. The daily new cases represent the number of newly reported COVID-19 cases per day.
 
-On closer inspection of the graph, we can observe that several nations had low stringency indices and few new cases, demonstrating that they were able to control the outbreak. Some nations on the other hand, had relatively high stringency indices and high numbers of new cases, indicating less effective outbreak management.
+![Picture 2](https://github.com/Parthvi579/Data-Visualization_2/assets/72267232/d3a12a40-6bff-42c4-b7ba-f50ebae86441)
 
-The scatterplot chart enables the correlation between the stringency index and new cases for each nation.
 
-Pre-processing analytics used by me for this visualization, 
 
-import pandas as pd
 
-##### Load the data from the CSV file
+Chart 2: Circular Packing Chart
 
-data = pd.read_csv("https://covid.ourworldindata.org/data/owid-covid-data.csv")
+### 3. Exploring the relationship between Total Factor Productivity and poverty indicators
 
-##### Select the columns of interest columns = ["location", "date", "new_cases", "stringency_index"] data = data[columns]
+The connected scatter plot with multiple lines that I created using the "tfp" data from the **Agriculture**
 
-##### Write the data to a new CSV file
+**Total Factor Productivity (USDA)** database, "income_gap_ratio_international_povline," and "headcount_ratio_international_povline" from the **PIP_dataset** database. The x-axis shows the years, and the y-axis shows the values of these three metrics.
 
-data.to_csv("scatter.csv", index=False)
+The updateConnectedScatterPlot function takes a selectCountry argument, which is used to filter the data for the selected country. If no data is available for the selected country, a message is displayed, and the function exits. If data is available, it is filtered to remove any rows with missing values.
 
-![Picture 1-2](https://github.com/Parthvi579/Data-Visualization_2/assets/72267232/6d6aabe2-0894-482e-b153-5cf0ef63d41a)
+The function then adds an x-axis and a y-axis to the scatter plot using D3's axisBottom and axisLeft functions, respectively. The x-axis uses the years from the data, and the y-axis uses the maximum value of the three metrics, multiplied by 1.1, to ensure that all the data points are visible.
 
+In order to investigate the relationship between this three data column, I am able to visualise that TFP measures the efficiency of inputs like labor and capital in producing outputs, making it a key driver of economic growth. When TFP increases, firms can produce more output with the same inputs or the same output with fewer inputs, resulting in increased profitability and economic growth. The graph illustrates how countries have been able to improve their TFP while also controlling poverty and income gap ratio over time. This **positive impact** can lead to job creation, higher wages, and increased access to goods and services, which can help reduce poverty globally.
 
-Chart 2: ScatterPlot Chart
+Given Screenshot:3 indicates the pre processing of data analytics.
 
-3. Choosing some specific countries, is there a relationship between the relative “wealth” (e.g. GDP) of a population and the spread of the pandemic?
 
-In order to investigate the relationship between a country's GDP per capita and the spread of the COVID19 pandemic, I used data from the OWID COVID-19 dataset, which provides information on the number of total cases and total GDP per capita for countries around the world. I focused on a subset of countries that I deemed relevant for my analysis.
+![Picture 3](https://github.com/Parthvi579/Data-Visualization_2/assets/72267232/0633a19f-64a3-4234-9df6-3d91eeace7f7)
 
-To visualize the data, I created a barline graph that shows the total number of COVID-19 cases over time for each country, with the bar representing the country's total GDP per capita.
 
-I use total_cases, gdp_per_capita, location from the owid-covid-data.csv to analysis this requirement.
 
-![Picture 1-3](https://github.com/Parthvi579/Data-Visualization_2/assets/72267232/9aaadbe6-ef7a-485c-9561-6a92cb2187ee)
+Chart 3: Connected Scatter Plot Chart-Positive
 
+### 4. Exploring the relationship between Agricultural Input-Output and Poverty gap Index
 
-Chart 3: Bar_Line Chart
+The connected scatter plot with multiple lines that I created using the "input" and “output” data from the **Agriculture Total Factor Productivity (USDA)** database, "poverty_gap_index_international_povline" from the **PIP_dataset** database. The x-axis shows the years, and the y-axis shows the values of these three metrics.
 
-4. What effect did vaccinations have on the spread of cases/deaths? Did booster jabs also have an impact on the spread/transmissibility of the virus?
+The updateNegConnectedScatterPlot function takes a selectCountry argument, which is used to filter the data for the selected country. If no data is available for the selected country, a message is displayed, and the function exits. If data is available, it is filtered to remove any rows with missing values.
 
-In this analysis, I investigate the effect of vaccinations on the spread of COVID-19 cases and deaths, as well as the impact of booster jabs on a quarterly basis. I examine the relationship between vaccination rates, new cases, and booster doses in a selection of countries using data from the Our World in Data COVID-19 dataset.
+The function then adds an x-axis and a y-axis to the scatter plot using D3's axisBottom and axisLeft functions, respectively. The x-axis uses the years from the data, and the y-axis uses the maximum value of the three metrics, multiplied by 1.1, to ensure that all the data points are visible.
 
-The grouped bar chart shows that there is a clear relationship between vaccinations and the spread of
+In order to investigate the relationship between these three data columns, the visualisation shows that despite a country's high inputs in agriculture, its output is still low. This can lead to difficulties in producing enough food to meet the needs of the population, contributing to increased poverty and food insecurity. Moreover, a high poverty gap index at an international level indicates significant income disparity between the rich and poor in a country, which can worsen the issue of poverty and food insecurity. While some countries have been able to address this, it still remains a challenge to completely eradicate poverty and food insecurity, which can have **negative impacts** on the world.
 
-COVID-19 cases and deaths on a quarterly basis. In the first quarter of 2021, many countries had low vaccination rates and high rates of new cases and deaths. However, as vaccination rates increased in subsequent quarters, new cases and deaths tended to decrease.
+I used same csv file which i have used in creation of positive facet chart which is created by python as a pre-processing analysis.
 
-Furthermore, the data suggests that booster doses may have an impact on the spread and transmissibility of the virus on a quarterly basis. Countries with high rates of booster doses had relatively low rates of new cases and deaths in the fourth quarter of 2021 compared to countries with similar GDPs and vaccination rates.
+![Picture 4](https://github.com/Parthvi579/Data-Visualization_2/assets/72267232/680a9557-16f1-4b10-83da-985ddc22ad5c)
 
-I used python as a pre-processing analysis by taking some specific country and relevant column from the dataset.
 
-import pandas as pd
+Chart 4: Connected Scatter Plot Chart-Negative
 
-##### Define selected country and columns selected_countries = ['United States', 'India', 'Brazil', 'United Kingdom', 'Italy', 'China'] selected_columns = ['iso_code', 'location', 'date', 'new_vaccinations_smoothed', 'new_cases_smoothed', 'new_deaths_smoothed', 'total_boosters']
+### 5. Indices of Agricultural Production Factors in Countries
 
-##### Read the data from the CSV file
+In the Stacked barplot with highlighting group chart i have used “ag_land_index”, “labor_index”, “capital_index”, “material_index” from **Agriculture Total Factor Productivity (USDA)** dataset. This chart displays information about the input factor productivity in Agriculture across various countries. It indicates that over time, many countries such as Papua New Guinea, Philippines, and Turkey have increased their inputs on agriculture, while some countries like Ukraine, Finland, United Kingdom, and Austria have reduced their inputs. Additionally, there are still some countries like Australia, Bahamas, Canada, Caribbean, and Chile that have maintained a stable input level for agriculture.
 
-df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv', usecols=selected_columns)
+This chart also highlights data plots that have the same group of data in different bar plots.
 
-##### Filter the data for selected countries
+![Picture 5](https://github.com/Parthvi579/Data-Visualization_2/assets/72267232/0bc6d243-3775-41f9-83e6-c98dc5a55a45)
 
-##### df_selected = df[df['location'].isin(selected_countries)] df_selected = df
-
-##### Drop rows with missing data
-
-df_selected.dropna(inplace=True)
-
-##### Convert the date column to datetime format
-
-df_selected['date'] = pd.to_datetime(df_selected['date'])
-
-df_selected['quarter'] = df_selected['date'].dt.to_period('Q')
-
-##### Aggregate data by quarter and year df_selected_agg = df_selected.groupby(['location', 'quarter'])[['new_vaccinations_smoothed', 'new_cases_smoothed', 'total_boosters']].agg({'new_vaccinations_smoothed':'sum',
-
-'new_cases_smoothed':'sum', 'total_boosters': lambda x: x.iloc[-1]-x.iloc[0]}).reset_index() print(df_selected_agg.head())
-
-df_selected_agg.to_csv("4_Groupedbarchart.csv", index=False)
-
-![Picture 1-4](https://github.com/Parthvi579/Data-Visualization_2/assets/72267232/ae7e4b2e-1d03-45cd-8017-b48e1f8be9c2)
-
-
-Chart 4: Grouped-BarPlot Chart
-
-5. How might the geographical position of a country change how the pandemic impacted them?
-
-To analyze the impact of the pandemic, we used a choropleth map that displayed different scalar data over a world map. The data was obtained from the Our World in Data repository and included the “total number of cases”, “vaccinations”, and total deaths due to COVID-19 in different countries. I used circles of varying sizes to represent the total number of deaths in each country, with larger circles indicating a higher number of deaths. The map also included tooltips that provided more information about each country, such as the total number of cases, vaccinations, and people vaccinated.
-
-My analysis of the data revealed that the pandemic has impacted different countries in different ways, depending on their geographical position. For example, countries in Asia and Africa were slower to vaccinate their populations compared to countries in Europe and North America. Countries with high population densities, experienced a significant surge in cases, resulting in a higher number of deaths. I used python for analysis of data for scale distribution over map and tooltip import pandas as pd
-
-# Read the data from the CSV file
-
-df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
-
-##### Select the desired columns and fill missing values with 0
-
-df_selected = df[["location", "iso_code", "total_cases", "total_deaths",
-
-"total_vaccinations","people_vaccinated"]] df_selected.fillna(0, inplace=True)
-
-##### Group by country and sum the values
-
-df_agg = df_selected.groupby(['location', 'iso_code']).agg({'total_cases': 'max', 'total_deaths': 'max',
-
-'total_vaccinations': 'max'}).reset_index()
-
-df_agg["code"] = df_agg["iso_code"]
-
-##### Display the aggregated data print(df_agg)
-
-##### Write the data to a CSV file df_agg.to_csv("5_map.csv", index=False)
-
-![Picture 1-5](https://github.com/Parthvi579/Data-Visualization_2/assets/72267232/b6ae7221-5e8a-47a6-b985-42827409f23f)
-
-
-Chart 5: Choropleth map
+Chart 5: Stacked bar plot with group highlighting chart
